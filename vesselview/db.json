@@ -1,0 +1,8 @@
+{
+    "ships": [
+      { "id": 1, "name": "Vessel A", "speed": 12, "status": "On Course", "position": [51.5, -0.1] },
+      { "id": 2, "name": "Vessel B", "speed": 10, "status": "Off Course", "position": [51.6, -0.2] },
+      { "id": 3, "name": "Vessel C", "speed": 15, "status": "On Course", "position": [51.7, -0.3] }
+    ]
+  }
+  

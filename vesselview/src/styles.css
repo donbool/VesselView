@@ -1,0 +1,91 @@
+/* Import Mantine core styles */
+@import '@mantine/core/styles.css';
+
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: Add any custom global styles you need */
+.container {
+  min-height: 100vh;
+}
+
+/* If you need to override any Mantine styles, do it here */
+/* Navbar Container */
+.navbar {
+  background-color: #00274d;
+  color: white;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo img {
+  height: 40px;
+  width: 40px;
+}
+
+.navbar-logo h1 {
+  font-size: 20px;
+  margin-left: 10px;
+  color: white;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar-link:hover {
+  color: #1c7ed6;
+}
+
+.navbar-burger {
+  display: block;
+}
+
+/* Mobile Drawer Links */
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-link {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.drawer-link:hover {
+  background-color: #1c7ed6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-burger {
+    display: block;
+  }
+}
