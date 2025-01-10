@@ -4,6 +4,7 @@ import Map from '../components/Map';
 import { Grid, Title, Container, Paper, SegmentedControl } from '@mantine/core';
 import ShipCard from '../components/ShipCard';
 import AddShipForm from '../components/AddShipForm';
+import Statistics from '../components/Statistics';
 
 
 function Dashboard() {
@@ -20,16 +21,8 @@ function Dashboard() {
           throw new Error('Failed to fetch ships');
         }
         const data = await response.json();
-        setShips(
-          data.map((ship) => ({
-            id: ship.id,
-            name: ship.name,
-            speed: ship.speed,
-            status: ship.status,
-            position: [ship.position_lat, ship.position_lon],
-            starred: ship.starred,
-          }))
-        );
+        console.log('Fetched ships:', data); // Debug log
+        setShips(data); // Use the raw data without transformation
       } catch (error) {
         console.error('Error fetching ships:', error);
       }
@@ -63,19 +56,15 @@ function Dashboard() {
         Ship Monitoring Dashboard
       </Title>
 
+      {/* Add Statistics component */}
+      <Statistics />
+
       {/* Map Section */}
-      <Paper shadow="md" radius="lg" p="lg" withBorder>
+      <Paper shadow="md" radius="lg" p="lg" withBorder mt="md">
         <Map ships={ships} />
       </Paper>
 
-      <Title order={3} mt="xl" mb="md">
-        Add a New Ship
-        </Title>
-        <AddShipForm
-        onShipAdded={(newShip) => setShips((prevShips) => [...prevShips, newShip])}
-        />
-
-
+      
       {/* Toggle for All Ships vs Your Vessels */}
       <SegmentedControl
         fullWidth

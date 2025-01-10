@@ -13,7 +13,7 @@ body {
 }
 
 /* If you need to override any Mantine styles, do it here */
-/* Navbar Container */
+/* 
 .navbar {
   background-color: #00274d;
   color: white;
@@ -61,7 +61,7 @@ body {
   display: block;
 }
 
-/* Mobile Drawer Links */
+
 .drawer-links {
   display: flex;
   flex-direction: column;
@@ -79,7 +79,6 @@ body {
   background-color: #1c7ed6;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .navbar-links {
     display: none;
@@ -88,4 +87,4 @@ body {
   .navbar-burger {
     display: block;
   }
-}
+} */

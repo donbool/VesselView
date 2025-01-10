@@ -1,99 +1,81 @@
-import React from 'react';
-import { Burger, Drawer, Stack, Text, Box, Flex } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import '../styles.css';
+import React, { useState } from 'react';
+import {
+  IconBellRinging,
+  IconSwitchHorizontal,
+  IconLogout,
+} from '@tabler/icons-react';
+import { Code, Group, Burger, Drawer } from '@mantine/core';
+import { Link } from 'react-router-dom'; // Import Link from React Router
+import classes from './NavbarSimple.module.css';
 
-function Navbar() {
-  const [opened, { toggle, close }] = useDisclosure(false);
+const data = [
+  { link: '/', label: 'Dashboard', icon: IconBellRinging },
+  { link: '/map', label: 'Map', icon: IconBellRinging },
+  { link: '/alerts', label: 'Alerts', icon: IconBellRinging },
+  { link: '/fleet-overview', label: 'Fleet Overview', icon: IconBellRinging },
+];
 
-  const links = [
-    { href: '/', label: 'Home' },
-    { href: '/', label: 'Dashboard' },
-    { href: '/alerts', label: 'Alerts' },
-    { href: '/fleet-overview', label: 'Fleet Overview' },
-  ];
+export function NavbarSimple() {
+  const [active, setActive] = useState('Dashboard');
+  const [opened, setOpened] = useState(false);
+
+  const links = data.map((item) => (
+    <Link
+      to={item.link} // Use Link's "to" attribute for navigation
+      className={`${classes.link} ${
+        active === item.label ? classes.active : ''
+      }`}
+      key={item.label}
+      onClick={() => {
+        setActive(item.label);
+        setOpened(false); // Close the drawer on link click
+      }}
+    >
+      <item.icon className={classes.linkIcon} stroke={1.5} />
+      <span>{item.label}</span>
+    </Link>
+  ));
 
   return (
     <>
-      {/* Navbar Header */}
-      <header className="navbar">
-        <div className="navbar-container">
-          {/* Logo Section */}
-          <div className="navbar-logo">
-            <img
-              src="/logo.png"
-              alt="ShipMonitor Logo"
-              className="navbar-logo-img"
-            />
-            <div className="navbar-logo">
-          <a href="/" className="navbar-logo-link" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <h1 className="navbar-logo-text">ShipMonitor</h1>
-          </a>
-        </div>
+      <Burger
+        opened={opened}
+        onClick={() => setOpened(!opened)}
+        className="fixed top-4 left-4 z-30"
+        size="sm"
+        aria-label="Toggle navigation"
+      />
 
-          </div>
-
-          {/* Burger for All Screens */}
-          <Burger
-            opened={opened}
-            onClick={toggle}
-            className="navbar-burger"
-            color="white"
-            size="sm"
-            aria-label="Toggle navigation"
-          />
-        </div>
-      </header>
-
-      {/* Left-Side Drawer */}
       <Drawer
         opened={opened}
-        onClose={close}
-        size="250px"
-        position="left" // Drawer slides from the left
-        padding="lg"
-        // overlayOpacity={0.5} // Dim the background when opened
-        withOverlay
-        styles={{
-          drawer: {
-            backgroundColor: '#00274d',
-            color: 'white',
-            zIndex: 1100,
-          },
-        //   overlay: {
-        //     zIndex: 1000, // Make sure overlay covers the map
-        //   },
-        }}
+        onClose={() => setOpened(false)}
+        size={300}
+        padding={0}
+        withCloseButton={false}
       >
-        <Stack spacing="md">
-          {links.map((link) => (
-            <Text
-              key={link.label}
-              component="a"
-              href={link.href}
-              onClick={close}
-              sx={{
-                display: 'block',
-                fontSize: '16px',
-                fontWeight: 500,
-                color: 'white',
-                padding: '10px 0',
-                textDecoration: 'none',
-                borderRadius: '4px',
-                transition: 'background-color 150ms ease',
-                '&:hover': {
-                  backgroundColor: '#004080',
+        <nav className={classes.navbar}>
+          <div className={classes.navbarMain}>
+            <Group className={classes.header} justify="space-between">
+              <Code fw={700}>v3.1.2</Code>
+            </Group>
+            {links}
+          </div>
 
-                },
-              }}
-            >
-              {link.label}
-            </Text>
-          ))}
-        </Stack>
+          <div className={classes.footer}>
+            <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+              <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
+              <span>Change account</span>
+            </a>
+
+            <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+              <IconLogout className={classes.linkIcon} stroke={1.5} />
+              <span>Logout</span>
+            </a>
+          </div>
+        </nav>
       </Drawer>
     </>
   );
 }
 
-export default Navbar;
+export default NavbarSimple;
